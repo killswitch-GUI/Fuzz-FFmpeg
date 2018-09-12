@@ -4,7 +4,6 @@ services:
     build: ffmpeg
     restart: always
     volumes:
-      - ./ffmpeg_input:/root/ffmpeg_input
-      - ./ffmpeg_output:/root/ffmpeg_output
-      - ./ffmpeg_sources:/root/ffmpeg_sources
-      - ./ffmpeg_bin:/root/bin
+      - ./ffmpeg_input:/ffmpeg_input
+      - ./ffmpeg_output:/ffmpeg_output
+      - ./ffmpeg_afl_scripts:/ffmpeg_afl_scripts

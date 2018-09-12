@@ -46,7 +46,8 @@ RUN sudo apt-get update -qq && sudo apt-get -y install \
     python3 \
     python3-pip \
     python2.7 \
-    python-pip 
+    python-pip \
+    screen 
 
 # install pip / update
 RUN pip install --upgrade pip && pip3 install --upgrade pip
@@ -66,19 +67,20 @@ RUN git clone https://gitlab.com/rc0r/afl-utils.git && \
     cd afl-utils && python setup.py install
 
 # Install FFMPEG
-RUN cd /root/ffmpeg_sources && \
-   wget -O ffmpeg-snapshot.tar.bz2 https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 && \
-   tar xjvf ffmpeg-snapshot.tar.bz2 && \
-   cd ffmpeg && \
-   PATH="/root/bin:$PATH" PKG_CONFIG_PATH="$/root/ffmpeg_build/lib/pkgconfig" ./configure \
+RUN mkdir -p ~/ffmpeg_sources ~/bin && \
+    cd ~/ffmpeg_sources && \
+    wget -O ffmpeg-snapshot.tar.bz2 https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 && \
+    tar xjvf ffmpeg-snapshot.tar.bz2 && \
+    cd ffmpeg && \
+    PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig" ./configure \
      --cc=afl-gcc \
      --cxx=afl-g++ \
-     --prefix="/root/ffmpeg_build" \
+     --prefix="$HOME/ffmpeg_build" \
      --pkg-config-flags="--static" \
-     --extra-cflags="-I/root/ffmpeg_build/include" \
-     --extra-ldflags="-L/root/ffmpeg_build/lib" \
+     --extra-cflags="-I$HOME/ffmpeg_build/include" \
+     --extra-ldflags="-L$HOME/ffmpeg_build/lib" \
      --extra-libs="-lpthread -lm" \
-     --bindir="/root/bin" \
+     --bindir="$HOME/bin" \
      --enable-gpl \
      --enable-libass \
      --enable-libfdk-aac \
@@ -90,7 +92,7 @@ RUN cd /root/ffmpeg_sources && \
      --enable-libx264 \
      --enable-libx265 \
      --enable-nonfree && \
-   PATH="/root/bin:$PATH" make -j12 && \
-   make install
-
+   PATH="$HOME/bin:$PATH" make -j12 && \
+   make install && \
+   hash -r
 ENTRYPOINT ["tail", "-f", "/dev/null"]
