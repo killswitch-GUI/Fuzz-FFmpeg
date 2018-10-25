@@ -12,7 +12,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # install proper tools
 RUN apt-get update && \
-    apt-get install -yq net-tools sudo
+    apt-get install -yq net-tools sudo nano htop
 
 RUN sudo apt-get update -qq && sudo apt-get -y install \
     autoconf \
