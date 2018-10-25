@@ -1,7 +1,7 @@
 {
+    "mem_limit": "none",
     "target": "/root/bin/ffmpeg",
     "input": "/ffmpeg_input",
-    "cmdline": "-i %% test.avi",
+    "cmdline": "-i @@ test.avi",
     "output": "/ffmpeg_output"
 }
-
