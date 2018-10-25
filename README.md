@@ -5,6 +5,10 @@
 ```docker-compose up -d --build```
 
 ```bash
+docker exec -ti <DOCKER NAME HERE> bash
+```
+
+```bash
 python3 /afl-utils/afl-multicore -c ffmpeg_afl_scripts/afl_mc_ffmpeg.json start 12
 ```
 
