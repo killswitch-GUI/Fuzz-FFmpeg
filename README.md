@@ -23,5 +23,7 @@ python3 /afl-utils/afl-stats -c test.conf -d stats.db
 ## checking in
 
 ```bash
+cd /ffmpeg_output#
 cat */fuzzer_stats | grep unique_crashes
+cat */fuzzer_stats | grep unique_hangs
 ```
