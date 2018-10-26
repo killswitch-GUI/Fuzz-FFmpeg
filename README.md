@@ -1,4 +1,4 @@
-# fuzz-ffmpeg
+# Fuzz-FFmpeg
 
 
 ### Build & Deploy
