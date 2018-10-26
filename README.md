@@ -2,27 +2,12 @@
 
 
 ### Build & Deploy
-**Step 1)** Build the solution.
+1. Pull the repo: `git clone X`
+2. Building the Docker image can take some time honestly, it requires an install of many dependencies and compiles of the FFmpeg project. This can be easily done like so: `docker-compose up -d --build`
+3. Drop into Docker image interactively using the following command: `docker exec -ti <DOCKER NAME HERE> bash`. This due to the image being set up in daemon mode with an entry point that will not exit upon completion.
+4. Starting your workload is easy with afl-multicore, this automates the process of starting multiple instances with nohup: `python3 /afl-utils/afl-multicore -c ffmpeg_afl_scripts/afl_mc_ffmpeg.json start 12`
+5. There are many ways to check the status of your workload, it can be done with afl-stats or even grep:
 ```
-docker-compose up -d --build
-```
-**Step 2)** Drop into docker image.
-```bash
-docker exec -ti <DOCKER NAME HERE> bash
-```
-**Step 3)** Start your workload.
-```bash
-python3 /afl-utils/afl-multicore -c ffmpeg_afl_scripts/afl_mc_ffmpeg.json start 12
-```
-**step 4)** Collect stats!
-```bash
-python3 /afl-utils/afl-stats -c test.conf -d stats.db 
-```
-
-
-## Checking in
-
-```bash
 cd /ffmpeg_output#
 cat */fuzzer_stats | grep unique_crashes | uniq
 cat */fuzzer_stats | grep unique_hangs| uniq
