@@ -1,5 +1,5 @@
 # Fuzz-FFmpeg
-
+In this example, we use Ubuntu 16.04 as our host OS and multiple supporting packages to properly support the FFmpeg install. We also added the afl-utils repo to the Docker image to support larger core nodes. Here is the Docker file that we used built to support this
 
 ### Build & Deploy
 1. Pull the repo: `git clone X`
